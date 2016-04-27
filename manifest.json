@@ -1,0 +1,17 @@
+{
+  "name": "github",
+  "version": "1",
+  "manifest_version":2,
+  "description": "A plain text description",
+  "icons": 
+	  { 
+		"16": "icon16.png",             
+		"48": "icon48.png",            
+		"128": "icon128.png" 
+	  },
+	"content_scripts": [
+	{"matches": ["http://git.oschina.net/organizations/*/members"], //满足什么样的条件执行该插件
+	"js": ["jquery.js","run.js"],//执行的js脚本
+	"run_at": "document_end"// 定义document开始加载时执行该脚本,run_at有算个值: document_start | document_idel | document_end &nbsp;
+	}]
+} 
