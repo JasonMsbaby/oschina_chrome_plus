@@ -17,26 +17,6 @@ $(function(){
 	var currentUser = $("#git-nav-user").attr("alt");
 	var User = AV.Object.extend('user');
 	var Relation = AV.Object.extend('releation');
-
-	//保存用户
-	// var saveUser = function(username,success){
-	// 	var query = new AV.Query('user');
-	// 	query.equalTo('userName', username);
-	// 	query.count().then(function(count) {
-	// 	  if (count == 0) {
-	// 	  	var user = new User();
-	// 		user.set('userName',username);
-	// 		user.save().then(function(u) {
-	// 		  	success();
-	// 		}, function(err) {
-	// 			alert("保存失败");
-
-	// 		});
-	// 	  }
-	// 	}, function(error) {
-	// 	  alert(error);
-	// 	});
-	// };
 	//保存关系
 	var saveRelationShip = function(username,mark){
 		var query = new AV.Query('releation');
@@ -57,7 +37,7 @@ $(function(){
 			alert(error.message);
 		});
 	};
-
+	//查询关系
 	var fetchFriendShip = function(){
 		var query = new AV.Query('releation');
 		query.equalTo('userId',currentUser);
@@ -71,20 +51,19 @@ $(function(){
 	};
 
 
+	if (currentUser != null && currentUser != undefined) {
+		//解析html页面
+		var table = $(".single tbody tr");
+		$.each(table,function(index,ele){
+			var name = $(ele).find("td").find("item").find("a").html();
+				var td = $(ele).find("td")[1];
+				$(td).append("<input class='markName friendId_"+name+"' style='margin-left:20px;' type='text' value='' placeholder='请输入备注名称' />");
+				$(td).append("<input class='btnSubmit' style='margin-left:10px;' type='button' friendId='"+name+"' value='更改'/>");
+		});
+		fetchFriendShip();
+	}
 
-	//解析html页面
-	var table = $(".single tbody tr");
-	$.each(table,function(index,ele){
-		var name = $(ele).find("td").find("item").find("a").html();
-		/*if(index == 0){
-			currentUser = name;
-		}else{*/
-			var td = $(ele).find("td")[1];
-			$(td).append("<input class='markName friendId_"+name+"' style='margin-left:20px;' type='text' value='' placeholder='请输入备注名称' />");
-			$(td).append("<input class='btnSubmit' style='margin-left:10px;' type='button' friendId='"+name+"' value='更改'/>");
-		//}
-	});
-	fetchFriendShip();
+	
 
 
 
