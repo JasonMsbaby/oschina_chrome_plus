@@ -14,7 +14,7 @@ AV.initialize('1sApnvsOhfpRpq3Axs8E9tPe-gzGzoHsz', 'YEEASr75SLVa35a424CWYto9');
 $(function(){
 
 	//当前用户
-	var currentUser = "";
+	var currentUser = $("#git-nav-user").attr("alt");
 	var User = AV.Object.extend('user');
 	var Relation = AV.Object.extend('releation');
 
@@ -74,16 +74,15 @@ $(function(){
 
 	//解析html页面
 	var table = $(".single tbody tr");
-	
 	$.each(table,function(index,ele){
 		var name = $(ele).find("td").find("item").find("a").html();
-		if(index == 0){
+		/*if(index == 0){
 			currentUser = name;
-		}else{
+		}else{*/
 			var td = $(ele).find("td")[1];
 			$(td).append("<input class='markName friendId_"+name+"' style='margin-left:20px;' type='text' value='' placeholder='请输入备注名称' />");
 			$(td).append("<input class='btnSubmit' style='margin-left:10px;' type='button' friendId='"+name+"' value='更改'/>");
-		}
+		//}
 	});
 	fetchFriendShip();
 
